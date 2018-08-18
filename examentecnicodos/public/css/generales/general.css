@@ -1,9 +1,111 @@
 /* Estilos generales -----------------------------------------------------------------*/
 
+html {
+    margin: auto;
+  }
 
+  body {   
+    font-family: tahoma;
+    background-color: #2c3e50;
+    width: 100%;
+}
+
+h1.h1-landing{
+    color: #FFF;
+    font-size: 4em;
+    font-weight: 700;
+    line-height: 0.8;
+    padding: 5%;
+    text-align: center;
+    margin: auto;
+}
+h1 span {
+    color: #fbb803;
+    display: block;
+}
+h2 {
+    width: 100%;  
+    font-size: 1.5em;
+    margin-bottom: 5%;    
+}
+  
+  .ocultar {
+    display: none;
+  }
+
+
+  button.button-header{
+    width: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 3em;
+    background-color: #27ae60;
+    box-sizing: border-box;
+    float: left;
+    color: #ecf0f1;
+    border-color: #ecf0f1;
+  }
 
 
 /* Estilos header --------------------------------------------------------------*/
 
+.clear{
+    clear: both;
+    margin-bottom: 5%;
+}
+.logo{
+    clear: both;
+    padding-left: 40%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
 
+.logo img{
+    width: 30%;      
+}
+.menuCont{
+    margin: 2%;
+}
+.menuCont a{    
+    text-decoration: none;
+    color: #fbb803;
+    float: right;
+    margin-bottom: 2%;
+    /* font-size: 1.5em;
+    color: #ffffff; */
+}
+.menuCont a:hover{
+    color: #fff;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease; 
+    text-align: center;
+}
+
+.logo{
+    margin : auto;
+}
 /* Estilos footer ------------------------------------------------------------------*/
+
+footer{
+    margin-top: 2%;
+}
+.redesSociales a{
+    position: relative; 
+    text-decoration: none;
+    font-size:  1.3em;
+    color:  #827f7f;
+    float:  right; 
+    margin: 0 1% 1% 0;     
+}
+.redesSociales a:hover{
+    color:  #fbb803;        
+}
+.mensajeError {
+    color: red;
+}
+
+button.button-header:hover{
+    background-color: #2ecc71;
+  }

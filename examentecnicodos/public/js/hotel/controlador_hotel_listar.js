@@ -90,7 +90,7 @@ function ftnGuardarIdSeleccionado (pId){
 };
 
 function ftnEliminarHotel(){
-	let hotel = [this.name,true];
+	let hotel = this.name;
     
     
     const swalWithBootstrapButtons = swal.mixin({
@@ -174,7 +174,7 @@ function ftnDesactivarHotel(){
 };
 
 function ftnActivarHotel(){
-	let hotel = [this.name,true];
+	let hotel = [this.name,false];
     
     
     const swalWithBootstrapButtons = swal.mixin({

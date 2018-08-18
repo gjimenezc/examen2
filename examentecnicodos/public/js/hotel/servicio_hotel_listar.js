@@ -62,8 +62,8 @@ function desactivarHotel(pHotel){
         dataType : 'json',
         async : false,
         data:{
-            _id : pHotel,
-            desactivado: true
+            _id : pHotel[0],
+            desactivado : pHotel[1]
         }
       });
     

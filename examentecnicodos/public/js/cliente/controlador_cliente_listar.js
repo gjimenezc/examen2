@@ -72,7 +72,7 @@ function ftnGuardarIdSeleccionado (pId){
 };
 
 function ftnEliminarCliente(){
-	let cliente = [this.name,true];
+	let cliente = this.name;
     
     
     const swalWithBootstrapButtons = swal.mixin({
