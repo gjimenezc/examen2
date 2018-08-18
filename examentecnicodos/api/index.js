@@ -62,6 +62,8 @@ app.use( function(req, res, next) {
 /**
  * Exportams todas las rutas dentro del index.js
  */
+const cliente = require('./components/cliente/cliente.route');
+const hotel = require('./components/hotel/hotel.route');
 
 
 
@@ -69,7 +71,8 @@ app.use( function(req, res, next) {
 /**
  * Le indicamos que le de acceso externo a las rutas inicializadas
  */
-
+app.use('/api', cliente);
+app.use('/api', hotel);
 
 // Se guarda todo lo que se ha realizado
 module.exports = app;
