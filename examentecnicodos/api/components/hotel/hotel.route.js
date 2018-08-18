@@ -19,6 +19,11 @@ router.route('/modificar_hotel')
         hotel.modificar(req, res);
 });
 
+router.route('/desactivar_hotel')
+    .post(function(req, res){
+        hotel.desactivar(req, res);
+});
+
 router.route('/borrar_hotel')
     .post(function(req, res){
         hotel.borrar(req, res);

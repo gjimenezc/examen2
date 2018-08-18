@@ -18,7 +18,6 @@ const inputApellidoUno = document.querySelector('#apellidoCliente');
 const inputApellidoDos = document.querySelector('#apellidoDosCliente');
 const inputNacimiento = document.querySelector('#nacimientoCliente');
 const selectSexo = document.querySelector('#sexoCliente');
-const imagenCliente = document.querySelector('#fotoCliente');
 const inputCorreo = document.querySelector('#correoCliente');
 const inputContrasenna = document.querySelector('#contrasennaCliente');
 const inputConfirmacion = document.querySelector('#confirmacionCliente');
@@ -47,7 +46,7 @@ function obtenerDatos(){
     let sApellidoDos = inputApellidoDos.value;
     let dNacimiento = inputNacimiento.value;
     let sSexo = selectSexo.value;
-    let iCliente = imagenCliente.value;
+    let iCliente = imagenUrl;
     let sCorreo = inputCorreo.value;
     let sContrasenna = inputContrasenna.value;
     
@@ -67,7 +66,7 @@ function obtenerDatos(){
         );
         console.log('No se pudo registrar el cliente');
     }else{
-        registrarProyecto(infoCliente);
+        registrarCliente(infoCliente);
         swal({
             type : 'success',
             title : 'Registro exitoso',
@@ -89,6 +88,7 @@ function validar(){
     let regexSoloLetras = /^[a-z A-ZáéíóúÁÉÍÓÚñÑ]+$/;
     let regexSoloNumeros = /^[0-9]+$/;
     let regexLetrasNumeros = /^[a-z A-ZáéíóúÁÉÍÓÚñÑ 0-9]+$/;
+    let regexFormatoCorreo = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
     
      //Validación cedula
@@ -156,7 +156,7 @@ function validar(){
     }
     
     //Validación correo
-    if(inputCorreo.value == '' ){
+    if(inputCorreo.value == '' && (regexFormatoCorreo.test(inputCorreo.value)==false)){
         inputCorreo.classList.add('error-input');
         bError = true;
     }else{

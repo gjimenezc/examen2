@@ -86,4 +86,21 @@ module.exports.agregar_calificacion = function (req, res) {
     )
 };
 
+module.exports.desactivar = function(req, res){
+    
+    hotelModel.update(
+        {_id: req.body._id}, 
+        {
+            desactivado : req.body.desactivado
+        },
+        function(error){
+            if(error){
+                res.json({success : false, msg : 'No se pudo desactivar el hotel, ocurrió el siguiente error' + error});
+            }else{
+                res.json({success : true, msg : 'Se desactivo el hotel con éxito'});
+            }
+        }
+    )
+};
+
 
