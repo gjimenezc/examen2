@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/generales/reset.css">
+    <link rel="stylesheet" href="../../css/generales/general.css">
+    <link rel="stylesheet" href="../../css/listas/tablas.css">
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="../../img/International_Pokémon_logo.svg.png" alt="Pokemón logo">
+      </div>
+      <div>
+          <button id="btnEntrenador" class="button-header">Entrenadores</button>
+          <button id = "btnPokemones" class="button-header">Pokemónes</button>
+      </div>
+      <div class="clear"></div>
+      
+  </header>
+    <div class="wrapper-header">
+        <h3 class="titulo-lista">Lista de Pokemónes</h3>
+
+        <div class="filtro">
+          <input type="text" id="inputBusqueda" placeholder="Búsqueda">
+          <button id="btnRegistrarPokemon"  class="btn-tabla-header">Registrar pokemón</button>
+        </div>
+    </div>
+    <div class="wrapper-listar">
+      <table id="tblPokemones">
+        <thead class="encabezados">
+            <th>Cliente</th>
+            <th>Cédula</th>
+            <th>Nombre completo</th>
+            <th>Apellidos</th>
+            <th>Sexo</th>
+            <th>Acciones</th>
+        </thead>
+        <tbody>
+            
+        </tbody>
+      </table>
+    </div>
+    <script src="../../js/jquery-3.3.1.js"></script>
+    <script src='https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.js' type='text/javascript'></script>
+    <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    <script src="../../js/pokemon/controlador_pokemon_lista.js"></script>
+    <script src="../../js/pokemon/servicio_pokemon_listar.js"></script>
+  </body>
+</html>

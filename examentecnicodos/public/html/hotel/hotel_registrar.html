@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/generales/reset.css">
+    <link rel="stylesheet" href="../../css/generales/general.css">
+    <link rel="stylesheet" href="../../css/formularios/formularios.css">
+  </head>
+  <body>
+      <header>
+          <div class="logo">
+            <img src="../../img/International_Pokémon_logo.svg.png" alt="Pokemón logo">
+          </div>
+          <div>
+              <button id="btnEntrenador" class="button-header">Entrenadores</button>
+              <button id = "btnPokemones" class="button-header">Pokemónes</button>
+          </div>
+          <div class="clear"></div>
+          
+      </header>
+    <div class="wrapper-formulario">
+        <form>
+            <h3>Registro de Pokemón</h3>
+
+            <div class="columna-i">
+              <div class="wrapper-imagen" id="mapaHotel">
+                  <!-- mapa -->
+              </div>
+              
+              <div class="field">
+                  <label for="provinciaHotel" >Provincia</label>
+                <select id="provinciaHotel"></select> 
+             
+              </div>
+
+              <div class="field">
+                  <label for="cantonHotel" >Cantón</label>
+                <select id="cantonHotel"></select> 
+             
+              </div>
+
+              <div class="field">
+                  <label for="distritoHotel" >Distrito</label>
+                <select id="distritoHotel"></select> 
+             
+              </div>
+
+              <div class="field">
+                  <label for="direccionHotel">Dirección exacta</label>
+                <textarea id="direccionHotel" rows="5"></textarea>
+              </div>
+            </div>
+
+            <div class="columna-d">
+              <div class="field">
+                  <label for="nombreHotel">Nombre</label>
+                <input type="text" id="nombreHotel" ></input>
+                
+              </div>
+          
+              <div class="field">
+                  <label for="telServicioHotel">Teléfono de servicio al cliente</label>
+                <input type="text" id="telServicioHotel"></input>
+                
+              </div>
+              
+              <div class="field">
+                  <label for="correoServicioHotel">Email de servicio al cliente</label>
+                <input type="email" id="correoServicioHotel"></input>
+                
+              </div>
+
+              <div class="field">
+                  <label for="telReservacionHotel">Teléfono para reservaciones</label>
+                <input type="text" id="telReservacionHotel"></input>
+                
+              </div>
+
+              <div class="field">
+                  <label for="correoReservacionHotel">Email para reservaciones</label>
+                <input type="email" id="correoReservacionHotel"></input>
+                
+              </div>
+
+              <button type="button" id="btnGuardar" class="btn-guardar">Registrar</button>  
+            </div>
+        </form>
+    </div>
+    <script src="../../js/jquery-3.3.1.js"></script>
+    <script src='https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.js' type='text/javascript'></script>
+    <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    <script src="../../js/pokemon/controlador_pokemon_form.js"></script>
+    <script src="../../js/pokemon/servicio_pokemon_form.js"></script>
+  </body>
+</html>
