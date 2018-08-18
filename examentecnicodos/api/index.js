@@ -64,6 +64,7 @@ app.use( function(req, res, next) {
  */
 const cliente = require('./components/cliente/cliente.route');
 const hotel = require('./components/hotel/hotel.route');
+const usuario = require('./components/usuario/user.route');
 
 
 
@@ -73,6 +74,7 @@ const hotel = require('./components/hotel/hotel.route');
  */
 app.use('/api', cliente);
 app.use('/api', hotel);
+app.use('/api', usuario);
 
 // Se guarda todo lo que se ha realizado
 module.exports = app;

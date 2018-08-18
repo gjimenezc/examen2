@@ -1,8 +1,18 @@
 'use strict';
 const clienteModel = require('./cliente.model');
+const nodeMailer = require('nodemailer');
+const transporter = nodeMailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'proyecto.test.software@gmail.com',
+        pass: '1proyectotestsoftware9'
+    }
+});
 
 
-module.exports.registrar = function(req, res){
+
+
+module.exports.registrar = function (req, res) {
     let nuevoCliente = new clienteModel({
         cedula : req.body.cedula,
         primerNombre : req.body.primerNombre,
@@ -12,14 +22,45 @@ module.exports.registrar = function(req, res){
         fechaNacimiento : req.body.fechaNacimiento,
         sexo : req.body.sexo,
         foto : req.body.foto,
-        contrasenna : req.body.contrasenna
+        correo : req.body.correo,
+        contrasenna : req.body.contrasenna,
+        tipo : 1
     });
 
-    nuevoCliente.save(function(error){
-        if(error){
-            res.json({success : false, msg : 'No se pudo registrar al cliente, ocurrió el siguiente error' + error});
-        }else{
-            res.json({success : true, msg : 'El cliente se registro con éxito'});
+    nuevoCliente.save(function (error) {
+        if (error) {
+            res.json({ success: false, msg: 'No se pudo registrar el cliente, ocurrió el siguiente error' + error });
+        } else {
+            let mailOptions = {
+                from: 'proyecto.test.software@gmail.com',
+                to: nuevoCliente.correo,
+                subject: 'Bievenido a Hoteles.com',
+                html: `
+                <html>
+                <head>
+                    <style>
+                        .tituloPrincipal{
+                            background: #6c5ce7;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1 class='tituloPrincipal'>Bienvenido ${nuevoCliente.primerNombre}</h1>
+                    <p>Disfrute de nuestra aplicación el correo con el cual debe iniciar sesión es: ${nuevoCliente.correo}</p>
+                </body>
+            </html>
+                        `
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+            res.json({ success: true, msg: 'El cliente se registró con éxito' });
         }
 
     });

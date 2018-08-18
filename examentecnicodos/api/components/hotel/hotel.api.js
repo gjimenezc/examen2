@@ -13,7 +13,8 @@ module.exports.registrar = function(req, res){
         telefonoServicio : req.body.telefonoServicio,
         correoServicio : req.body.correoServicio,
         telefonoReservacion : req.body.telefonoReservacion,
-        correoReservacion : req.body.correoReservacion
+        correoReservacion : req.body.correoReservacion,
+        desactivado : false
     });
 
     nuevoHotel.save(function(error){
@@ -56,6 +57,33 @@ module.exports.modificar = function (req, res) {
                 res.json({ success: true, msg: 'Se ha actualizado correctamente.' + res });
             }
         });
+};
+
+module.exports.agregar_calificacion = function (req, res) {
+
+    hotelModel.update(
+        { _id: req.body._id },
+        {
+            $push:
+            {
+                'calificacion':
+                {
+                    comida: req.body.comida,
+                    servicio: req.body.servicio,
+                    habitaciones: req.body.habitaciones,
+                    infraestructura: req.body.infraestructura,
+                    limpieza: req.body.limpieza
+                }
+            }
+        },
+        function (error) {
+            if (error) {
+                res.json({ success: false, msg: 'No se pudo registrar la calificación, ocurrió el siguiente error' + error });
+            } else {
+                res.json({ success: true, msg: 'La calificación se registró con éxito' });
+            }
+        }
+    )
 };
 
 

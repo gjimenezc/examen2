@@ -24,4 +24,9 @@ router.route('/borrar_hotel')
         hotel.borrar(req, res);
 });
 
+router.route('/agregar_calificacion')
+    .post(function(req, res){
+        hotel.agregar_calificacion(req, res);
+});
+
 module.exports = router;

@@ -10,7 +10,9 @@ let clienteSchema = new mongoose.Schema({
     fechaNacimiento : {type : Date, required : true},
     sexo : {type : String, required : true},
     foto : {type : String, required : true},
-    contrasenna : {type : String, required : true}
+    correo : {type : String, required : true},
+    contrasenna : {type : String, required : true},
+    tipo : {type : Number, required : true}
 });
 
 module.exports = mongoose.model('cliente', clienteSchema); 
