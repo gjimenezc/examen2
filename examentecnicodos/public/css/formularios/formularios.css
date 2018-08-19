@@ -52,6 +52,10 @@ label {
   .ocultar {
     display: none;
   }
+
+  .modificar {
+    display: none;
+  }
   
   .field{
     overflow: auto;

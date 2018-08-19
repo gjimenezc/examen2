@@ -21,6 +21,7 @@ const inputCorreoServicio = document.querySelector('#correoServicioHotel');
 const inputTelReservacion = document.querySelector('#telReservacionHotel');
 const inputCorreoReservacion = document.querySelector('#correoReservacionHotel');
 
+
 //listeners---------------------------------------------------
 btnGuardarHotel.addEventListener('click',function(){
 
@@ -39,7 +40,6 @@ function obtenerDatos(){
     let bError = false;
 
     let sNombre = inputNombre.value;
-    let sUbicacion = JSON.stringify({latitud: marker.getPosition().lat(), longitud: marker.getPosition().lng()});
     let sProvincia = selectProvincia.value;
     let sCanton = selectCanton.value;
     let sDistrito = selectDistrito.value;
@@ -48,6 +48,7 @@ function obtenerDatos(){
     let sCorreoServicio = inputCorreoServicio.value;
     let sTelReservacion = inputTelReservacion.value;
     let sCorreoReservacion = inputCorreoReservacion.value;
+    let sUbicacion = JSON.stringify({latitud: marker.getPosition().lat(), longitud: marker.getPosition().lng()});
     
     infoHotel.push(sNombre,sUbicacion,sProvincia,sCanton,sDistrito,sDireccion,sTelServicio,sCorreoServicio,sTelReservacion,sCorreoReservacion);
     
@@ -96,14 +97,6 @@ function validar(){
         bError = true;
     }else{
         inputNombre.classList.remove('error-input');
-    }
-    
-    //Validación ubicacion
-    if(mapaUbicacion.value == ''){
-        mapaUbicacion.classList.add('error-input');
-        bError = true;
-    }else{
-        mapaUbicacion.classList.remove('error-input');
     }
 
      //Validación provincia

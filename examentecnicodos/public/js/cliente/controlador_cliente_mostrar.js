@@ -11,6 +11,7 @@ Responsabilidades del controlador
 
 //variables globales------------------------------------------
 const btnGuardarCliente = document.querySelector('#btnGuardar');
+const btnEditarCliente = document.querySelector('#btnEditar');
 const inputCedula = document.querySelector('#cedulaCliente');
 const inputNombreUno = document.querySelector('#nombreCliente');
 const inputNombreDos = document.querySelector('#nombreDosCliente');
@@ -22,24 +23,145 @@ const imagenCliente = document.querySelector('#fotoCliente');
 const inputCorreo = document.querySelector('#correoCliente');
 const inputContrasenna = document.querySelector('#contrasennaCliente');
 const inputConfirmacion = document.querySelector('#confirmacionCliente');
+let idObjeto = obtenerId();
 
 //listeners---------------------------------------------------
-btnGuardarCliente.addEventListener('click',function(){
 
-    obtenerDatos();
+btnEditarCliente.addEventListener('click',function(){
+
+    btnEditarCliente.classList.add('modificar');
+    btnGuardarCliente.classList.remove('modificar');
+    ftnHabilitarCampos();
+    swal({
+        type : 'success',
+        title : 'Campos Habilitados',
+        text: 'Modificar datos y dar click en botón \"Guardar\"',
+        confirmButtonText : 'Entendido'
+    });
     
+});
+
+btnGuardarCliente.addEventListener('click',function(){
+    
+    const swalWithBootstrapButtons = swal.mixin({
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+      })
+      
+      swalWithBootstrapButtons({
+        title: 'Modificar cliente',
+        text: "¿Deseas guardar los cambios realizados?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, guardar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {     
+            obtenerDatos();
+            
+        } else if (
+          // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons(
+            'Cancelado!',
+            'Los cambios no fueron guardados',
+            'error'
+          )
+            ftnMostrarObjeto(idObjeto,obtenerClientes());
+            ftnDeshabilitarCampos();
+            ftnQuitarValidaciones();
+            btnEditarCliente.classList.remove('modificar');
+            btnGuardarCliente.classList.add('modificar');
+        }
+      })    
 });
 
 //loads------------------------------------------------------
 window.onload = function(){
+
+    let idObjeto = obtenerId();
+    let listaDatos = obtenerClientes();
     
+    ftnMostrarObjeto(idObjeto,listaDatos);
+    ftnDeshabilitarCampos();
 };
 
 //funciones-------------------------------------------------
+
+function ftnMostrarObjeto (pId,pListaDatos){
+
+    let objetoSeleccionado = null;
+
+    pListaDatos.forEach(element => {
+        if (element._id == pId) {
+            objetoSeleccionado = element;
+        }
+    });
+
+    inputCedula.value = objetoSeleccionado.cedula;
+    inputNombreUno.value = objetoSeleccionado.primerNombre;
+    inputNombreDos.value = objetoSeleccionado.segundoNombre;
+    inputApellidoUno.value = objetoSeleccionado.primerApellido;
+    inputApellidoDos.value = objetoSeleccionado.segundoApellido;
+    inputNacimiento.value = ftnFomatoFecha(objetoSeleccionado.fechaNacimiento);
+    selectSexo.value = objetoSeleccionado.sexo;
+    imagenCliente.src = objetoSeleccionado.foto;
+    inputCorreo.value = objetoSeleccionado.correo;
+    inputContrasenna.value = objetoSeleccionado.contrasenna;
+    inputConfirmacion.value = objetoSeleccionado.tipo;
+   
+};
+
+
+function ftnDeshabilitarCampos (){
+
+ inputCedula.setAttribute('disabled',true);
+ inputNombreUno.setAttribute('disabled',true);
+ inputNombreDos.setAttribute('disabled',true);
+ inputApellidoUno.setAttribute('disabled',true);
+ inputApellidoDos.setAttribute('disabled',true);
+ inputNacimiento.setAttribute('disabled',true);
+ selectSexo.setAttribute('disabled',true);
+ imagenCliente.setAttribute('disabled',true);
+ inputCorreo.setAttribute('disabled',true);
+ inputContrasenna.setAttribute('disabled',true);
+ inputConfirmacion.setAttribute('disabled',true);
+
+};
+
+function obtenerId() {
+
+    return JSON.parse(sessionStorage.getItem("idFilaSeleccionado"));
+ }; 
+
+function ftnFomatoFecha (pFecha){
+    let fecha = new Date(pFecha);
+    let dd = fecha.getDate()+1;
+    let mm = fecha.getMonth()+1;
+    let yyyy = fecha.getFullYear();
+    let textoFecha = null;
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+    mm = '0'+mm
+    } 
+
+    textoFecha = yyyy + "-" + mm + "-" + dd;
+  
+    return textoFecha;
+};
+
 function obtenerDatos(){
     let infoCliente =[];
     let bError = false;
 
+    let idObjeto = idObjeto;
     let sCedula = inputCedula.value;
     let sNombreUno = inputNombreUno.value;
     let sNombreDos = inputNombreDos.value;
@@ -47,11 +169,11 @@ function obtenerDatos(){
     let sApellidoDos = inputApellidoDos.value;
     let dNacimiento = inputNacimiento.value;
     let sSexo = selectSexo.value;
-    let iCliente = imagenUrl;
+    let iCliente = imagenCliente.src;
     let sCorreo = inputCorreo.value;
     let sContrasenna = inputContrasenna.value;
     
-    infoCliente.push(sCedula,sNombreUno,sNombreDos,sApellidoUno,sApellidoDos,dNacimiento,sSexo,iCliente,sCorreo,sContrasenna);
+    infoCliente.push(idObjeto,sCedula,sNombreUno,sNombreDos,sApellidoUno,sApellidoDos,dNacimiento,sSexo,iCliente,sCorreo,sContrasenna);
     
     bError = validar();
     if(bError == true){
@@ -67,7 +189,7 @@ function obtenerDatos(){
         );
         console.log('No se pudo registrar el cliente');
     }else{
-        registrarCliente(infoCliente);
+        modificarCliente(infoCliente);
         swal({
             type : 'success',
             title : 'Registro exitoso',
@@ -183,6 +305,23 @@ function validar(){
     return bError;
 };
 
+
+function ftnHabilitarCampos (){
+
+ inputCedula.setAttribute('disabled',false);
+ inputNombreUno.setAttribute('disabled',false);
+ inputNombreDos.setAttribute('disabled',false);
+ inputApellidoUno.setAttribute('disabled',false);
+ inputApellidoDos.setAttribute('disabled',false);
+ inputNacimiento.setAttribute('disabled',false);
+ selectSexo.setAttribute('disabled',false);
+ imagenCliente.setAttribute('disabled',false);
+ inputCorreo.setAttribute('disabled',false);
+ inputContrasenna.setAttribute('disabled',false);
+ inputConfirmacion.setAttribute('disabled',false);
+   
+};
+
 function ftnQuitarValidacionesClick (){
 
     let tiposInputs = ['input','select','textarea'];
@@ -208,7 +347,6 @@ function ftnQuitarValidacionesClick (){
 
         for (let j = 0; j < inputSeleccionado.length; j++) {
             
-
             inputSeleccionado[j].addEventListener('click', function(){
                 this.classList.remove('error-input');
             });   
@@ -217,4 +355,33 @@ function ftnQuitarValidacionesClick (){
     }
 };
 
+function ftnQuitarValidaciones (){
 
+    let tiposInputs = ['input','select','textarea'];
+    let inputsFormulario = [];
+    let inputsRequest = null;
+    let inputSeleccionado = null;
+
+    for (let i = 0; i < tiposInputs.length; i++) {    
+        
+        inputsRequest = document.getElementsByTagName(tiposInputs[i]);
+
+        if(inputsRequest == undefined || inputsRequest == ''){
+            continue;
+        } else {
+            
+            inputsFormulario.push(inputsRequest);
+            
+        }  
+    }
+
+    for (let i = 0; i < inputsFormulario.length; i++) {
+        inputSeleccionado = inputsFormulario[i]
+
+        for (let j = 0; j < inputSeleccionado.length; j++) {
+            
+            inputSeleccionado[j].classList.remove('error-input');
+            
+        }        
+    }
+};

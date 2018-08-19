@@ -30,11 +30,6 @@ function ListarHoteles(){
             let celdaEstado = fila.insertCell();
             let btns = fila.insertCell();
 
-            let imgCliente = document.createElement('img');
-            imgCliente.classList.add('img-tabla')
-            imgCliente.setAttribute('src',listaHotel[i]['foto']);
-            imgCliente.setAttribute('alt','Foto del cliente');
-
             let btnVer = document.createElement('a');
             btnVer.name = listaHotel[i]['_id'];
             btnVer.classList.add('fas');
@@ -57,7 +52,7 @@ function ListarHoteles(){
                 let btnActivar = document.createElement('a');
                 btnActivar.name = listaHotel[i]['_id'];
                 btnActivar.classList.add('fas');
-                btnActivar.classList.add('fa-eye');
+                btnActivar.classList.add('fa-plus-square');
                 btnActivar.addEventListener('click', ftnActivarHotel);
                 btns.appendChild(btnActivar);
             } else{
@@ -66,7 +61,7 @@ function ListarHoteles(){
                 let btnDesactivar = document.createElement('a');
                 btnDesactivar.name = listaHotel[i]['_id'];
                 btnDesactivar.classList.add('fas');
-                btnDesactivar.classList.add('fa-eye');
+                btnDesactivar.classList.add('fa-minus-square');
                 btnDesactivar.addEventListener('click', ftnDesactivarHotel);
                 btns.appendChild(btnDesactivar);
             }

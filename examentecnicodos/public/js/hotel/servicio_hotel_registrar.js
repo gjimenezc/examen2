@@ -24,11 +24,11 @@ function registrarHotel(pHotel){
             ubicacion : pHotel[1],
             provincia : pHotel[2],
             canton : pHotel[3],
-            distrito : pHotel[8],
-            direccion : pHotel[4],
-            telefonoServicio : pHotel[5],
-            correoServicio : pHotel[6],
-            telefonoReservacion : pHotel[7],
+            distrito : pHotel[4],
+            direccion : pHotel[5],
+            telefonoServicio : pHotel[6],
+            correoServicio : pHotel[7],
+            telefonoReservacion : pHotel[8],
             correoReservacion : pHotel[9]
         }
       });

@@ -1,4 +1,4 @@
-// initMap(); ----- NO SE NECESITA
+initMap();
 
 // Funcion encargada de crear el mapa
 function initMap() {
