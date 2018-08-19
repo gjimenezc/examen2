@@ -12,17 +12,15 @@ Responsabilidades del controlador
 //variables globales------------------------------------------
 const btnGuardarCliente = document.querySelector('#btnGuardar');
 const btnEditarCliente = document.querySelector('#btnEditar');
-const inputCedula = document.querySelector('#cedulaCliente');
-const inputNombreUno = document.querySelector('#nombreCliente');
-const inputNombreDos = document.querySelector('#nombreDosCliente');
-const inputApellidoUno = document.querySelector('#apellidoCliente');
-const inputApellidoDos = document.querySelector('#apellidoDosCliente');
-const inputNacimiento = document.querySelector('#nacimientoCliente');
-const selectSexo = document.querySelector('#sexoCliente');
-const imagenCliente = document.querySelector('#fotoCliente');
-const inputCorreo = document.querySelector('#correoCliente');
-const inputContrasenna = document.querySelector('#contrasennaCliente');
-const inputConfirmacion = document.querySelector('#confirmacionCliente');
+const inputNombre = document.querySelector('#nombreHotel');
+const selectProvincia = document.querySelector('#provinciaHotel');
+const selectCanton = document.querySelector('#cantonHotel');
+const selectDistrito = document.querySelector('#distritoHotel');
+const inputDireccion = document.querySelector('#direccionHotel');
+const inputTelServicio = document.querySelector('#telServicioHotel');
+const inputCorreoServicio = document.querySelector('#correoServicioHotel');
+const inputTelReservacion = document.querySelector('#telReservacionHotel');
+const inputCorreoReservacion = document.querySelector('#correoReservacionHotel');
 let idObjeto = obtenerId();
 
 //listeners---------------------------------------------------
@@ -50,7 +48,7 @@ btnGuardarCliente.addEventListener('click',function(){
       })
       
       swalWithBootstrapButtons({
-        title: 'Modificar cliente',
+        title: 'Modificar hotel',
         text: "¿Deseas guardar los cambios realizados?",
         type: 'warning',
         showCancelButton: true,
@@ -70,7 +68,7 @@ btnGuardarCliente.addEventListener('click',function(){
             'Los cambios no fueron guardados',
             'error'
           )
-            ftnMostrarObjeto(idObjeto,obtenerClientes());
+            ftnMostrarObjeto(idObjeto,obtenerHoteles());
             ftnDeshabilitarCampos();
             ftnQuitarValidaciones();
             btnEditarCliente.classList.remove('modificar');
@@ -83,7 +81,7 @@ btnGuardarCliente.addEventListener('click',function(){
 window.onload = function(){
 
     let idObjeto = obtenerId();
-    let listaDatos = obtenerClientes();
+    let listaDatos = obtenerHoteles();
     
     ftnMostrarObjeto(idObjeto,listaDatos);
     ftnDeshabilitarCampos();
@@ -101,34 +99,32 @@ function ftnMostrarObjeto (pId,pListaDatos){
         }
     });
 
-    inputCedula.value = objetoSeleccionado.cedula;
-    inputNombreUno.value = objetoSeleccionado.primerNombre;
-    inputNombreDos.value = objetoSeleccionado.segundoNombre;
-    inputApellidoUno.value = objetoSeleccionado.primerApellido;
-    inputApellidoDos.value = objetoSeleccionado.segundoApellido;
-    inputNacimiento.value = ftnFomatoFecha(objetoSeleccionado.fechaNacimiento);
-    selectSexo.value = objetoSeleccionado.sexo;
-    imagenCliente.src = objetoSeleccionado.foto;
-    inputCorreo.value = objetoSeleccionado.correo;
-    inputContrasenna.value = objetoSeleccionado.contrasenna;
-    inputConfirmacion.value = objetoSeleccionado.tipo;
+    inputNombre.value = objetoSeleccionado.nombre;
+    selectProvincia.value = objetoSeleccionado.provincia;
+    selectCanton.value = objetoSeleccionado.canton;
+    selectDistrito.value = objetoSeleccionado.distrito;
+    inputDireccion.value = objetoSeleccionado.direccion;
+    inputTelServicio.value = objetoSeleccionado.telefonoServicio;
+    inputCorreoServicio.src = objetoSeleccionado.correoServicio;
+    inputTelReservacion.value = objetoSeleccionado.telefonoReservacion;
+    inputCorreoReservacion.value = objetoSeleccionado.correoReservacion;
+    let cordenadasMapa = JSON.parse(objetoSeleccionado.ubicacion);
+        showMapForUpdate(cordenadasMapa.latitud, cordenadasMapa.longitud);
+
    
 };
 
-
 function ftnDeshabilitarCampos (){
 
- inputCedula.setAttribute('disabled',true);
- inputNombreUno.setAttribute('disabled',true);
- inputNombreDos.setAttribute('disabled',true);
- inputApellidoUno.setAttribute('disabled',true);
- inputApellidoDos.setAttribute('disabled',true);
- inputNacimiento.setAttribute('disabled',true);
- selectSexo.setAttribute('disabled',true);
- imagenCliente.setAttribute('disabled',true);
- inputCorreo.setAttribute('disabled',true);
- inputContrasenna.setAttribute('disabled',true);
- inputConfirmacion.setAttribute('disabled',true);
+    inputNombre.setAttribute('disabled',true);
+    selectProvincia.setAttribute('disabled',true);
+    selectCanton.setAttribute('disabled',true);
+    selectDistrito.setAttribute('disabled',true);
+    inputDireccion.setAttribute('disabled',true);
+    inputTelServicio.setAttribute('disabled',true);
+    inputCorreoServicio.setAttribute('disabled',true);
+    inputTelReservacion.setAttribute('disabled',true);
+    inputCorreoReservacion.setAttribute('disabled',true);
 
 };
 
@@ -158,22 +154,21 @@ function ftnFomatoFecha (pFecha){
 };
 
 function obtenerDatos(){
-    let infoCliente =[];
+    let infoHotel =[];
     let bError = false;
 
-    let idObjeto = idObjeto;
-    let sCedula = inputCedula.value;
-    let sNombreUno = inputNombreUno.value;
-    let sNombreDos = inputNombreDos.value;
-    let sApellidoUno = inputApellidoUno.value;
-    let sApellidoDos = inputApellidoDos.value;
-    let dNacimiento = inputNacimiento.value;
-    let sSexo = selectSexo.value;
-    let iCliente = imagenCliente.src;
-    let sCorreo = inputCorreo.value;
-    let sContrasenna = inputContrasenna.value;
+    let sNombre = inputNombre.value;
+    let sProvincia = selectProvincia.value;
+    let sCanton = selectCanton.value;
+    let sDistrito = selectDistrito.value;
+    let sDireccion = inputDireccion.value;
+    let sTelServicio = inputTelServicio.value;
+    let sCorreoServicio = inputCorreoServicio.value;
+    let sTelReservacion = inputTelReservacion.value;
+    let sCorreoReservacion = inputCorreoReservacion.value;
+    let sUbicacion = JSON.stringify({latitud: marker.getPosition().lat(), longitud: marker.getPosition().lng()});
     
-    infoCliente.push(idObjeto,sCedula,sNombreUno,sNombreDos,sApellidoUno,sApellidoDos,dNacimiento,sSexo,iCliente,sCorreo,sContrasenna);
+    infoHotel.push(sNombre,sUbicacion,sProvincia,sCanton,sDistrito,sDireccion,sTelServicio,sCorreoServicio,sTelReservacion,sCorreoReservacion);
     
     bError = validar();
     if(bError == true){
@@ -189,7 +184,7 @@ function obtenerDatos(){
         );
         console.log('No se pudo registrar el cliente');
     }else{
-        modificarCliente(infoCliente);
+        modificarHotel(infoHotel);
         swal({
             type : 'success',
             title : 'Registro exitoso',
@@ -197,7 +192,7 @@ function obtenerDatos(){
             confirmButtonText : 'Entendido'
         }).then(
             function(){
-                window.location.href = "../../html/cliente/cliente_listar.html" 
+                window.location.href = "../../html/hotel/hotel_listar_cliente.html" //falta
             }
         );
     }
@@ -214,92 +209,76 @@ function validar(){
     let regexFormatoCorreo = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
     
-     //Validación cedula
-     if(inputCedula.value == '' && (regexSoloNumeros.test(inputCedula.value)==false) ){
-        inputCedula.classList.add('error-input');
+     //Validación nombre
+     if(inputNombre.value == '' && (regexSoloLetras.test(inputNombre.value)==false) ){
+        inputNombre.classList.add('error-input');
         bError = true;
     }else{
-        inputCedula.classList.remove('error-input');
+        inputNombre.classList.remove('error-input');
+    }
+
+     //Validación provincia
+     if(selectProvincia.value == 'defecto'){
+        selectProvincia.classList.add('error-input');
+        bError = true;
+    }else{
+        selectProvincia.classList.remove('error-input');
+    }
+
+     //Validación canton
+     if(selectCanton.value == 'defecto'){
+        selectCanton.classList.add('error-input');
+        bError = true;
+    }else{
+        selectCanton.classList.remove('error-input');
+    }
+
+     //Validación distrito
+     if(selectDistrito.value == 'defecto'){
+        selectDistrito.classList.add('error-input');
+        bError = true;
+    }else{
+        selectDistrito.classList.remove('error-input');
+    }
+
+     //Validación direccion
+     if(inputDireccion.value == '' ){
+        inputDireccion.classList.add('error-input');
+        bError = true;
+    }else{
+        inputDireccion.classList.remove('error-input');
+    }
+
+    //Validación de tel servicio
+       if(inputTelServicio.value == ''){
+        inputTelServicio.classList.add('error-input');
+        bError = true;
+    }else{
+        inputTelServicio.classList.remove('error-input');
+    }
+
+    //Validación correo servicio
+    if(inputCorreoServicio.value == '' && (regexFormatoCorreo.test(inputCorreoServicio.value)==false)){
+        inputCorreoServicio.classList.add('error-input');
+        bError = true;
+    }else{
+        inputCorreoServicio.classList.remove('error-input');
     }
     
-    //Validación nombre1
-    if(inputNombreUno.value == '' && (regexSoloLetras.test(inputNombreUno.value)==false) ){
-        inputNombreUno.classList.add('error-input');
+    //Validación tel reservacion
+    if(inputTelReservacion.value == '' ){
+        inputTelReservacion.classList.add('error-input');
         bError = true;
     }else{
-        inputNombreUno.classList.remove('error-input');
+        inputTelReservacion.classList.remove('error-input');
     }
 
-     //Validación nombre2
-     if(inputNombreDos.value == '' && (regexSoloLetras.test(inputNombreDos.value)==false) ){
-        inputNombreDos.classList.add('error-input');
+    //Validación correo reservacion
+    if(inputCorreoReservacion.value == '' && (regexFormatoCorreo.test(inputCorreoReservacion.value)==false)){
+        inputCorreoReservacion.classList.add('error-input');
         bError = true;
     }else{
-        inputNombreDos.classList.remove('error-input');
-    }
-
-     //Validación apellido1
-     if(inputApellidoUno.value == '' && (regexSoloLetras.test(inputApellidoUno.value)==false) ){
-        inputApellidoUno.classList.add('error-input');
-        bError = true;
-    }else{
-        inputApellidoUno.classList.remove('error-input');
-    }
-
-     //Validación apellido2
-     if(inputApellidoDos.value == '' && (regexSoloLetras.test(inputApellidoDos.value)==false) ){
-        inputApellidoDos.classList.add('error-input');
-        bError = true;
-    }else{
-        inputApellidoDos.classList.remove('error-input');
-    }
-
-     //Validación nacimiento
-     if(inputNacimiento.value == '' ){
-        inputNacimiento.classList.add('error-input');
-        bError = true;
-    }else{
-        inputNacimiento.classList.remove('error-input');
-    }
-
-    //Validación de sexo
-       if(selectSexo.value == 'defecto'){
-        selectSexo.classList.add('error-input');
-        bError = true;
-    }else{
-        selectSexo.classList.remove('error-input');
-    }
-
-    //Validación foto
-    if(imagenCliente.value == '' ){
-        imagenCliente.classList.add('error-input');
-        bError = true;
-    }else{
-        imagenCliente.classList.remove('error-input');
-    }
-    
-    //Validación correo
-    if(inputCorreo.value == '' && (regexFormatoCorreo.test(inputCorreo.value)==false)){
-        inputCorreo.classList.add('error-input');
-        bError = true;
-    }else{
-        inputCorreo.classList.remove('error-input');
-    }
-
-    //Validación contrasenna
-    if(inputContrasenna.value == '' && inputContrasenna.value === inputConfirmacion.value  ){
-        inputContrasenna.classList.add('error-input');
-        bError = true;
-    }else{
-        inputContrasenna.classList.remove('error-input');
-    }
-
-    //Validación confirmación contrasenna
-    if(inputConfirmacion.value == '' && inputConfirmacion.value === inputContrasenna.value  ){
-        inputConfirmacion.classList.add('error-input');
-        bError = true;
-    }else{
-        inputConfirmacion.classList.remove('error-input');
+        inputCorreoReservacion.classList.remove('error-input');
     }
   
     return bError;
@@ -308,17 +287,15 @@ function validar(){
 
 function ftnHabilitarCampos (){
 
- inputCedula.setAttribute('disabled',false);
- inputNombreUno.setAttribute('disabled',false);
- inputNombreDos.setAttribute('disabled',false);
- inputApellidoUno.setAttribute('disabled',false);
- inputApellidoDos.setAttribute('disabled',false);
- inputNacimiento.setAttribute('disabled',false);
- selectSexo.setAttribute('disabled',false);
- imagenCliente.setAttribute('disabled',false);
- inputCorreo.setAttribute('disabled',false);
- inputContrasenna.setAttribute('disabled',false);
- inputConfirmacion.setAttribute('disabled',false);
+    inputNombre.setAttribute('disabled',false);
+    selectProvincia.setAttribute('disabled',false);
+    selectCanton.setAttribute('disabled',false);
+    selectDistrito.setAttribute('disabled',false);
+    inputDireccion.setAttribute('disabled',false);
+    inputTelServicio.setAttribute('disabled',false);
+    inputCorreoServicio.setAttribute('disabled',false);
+    inputTelReservacion.setAttribute('disabled',false);
+    inputCorreoReservacion.setAttribute('disabled',false);
    
 };
 

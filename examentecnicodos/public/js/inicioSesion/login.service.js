@@ -1,12 +1,25 @@
+function getListaUsuarios() {
+    let listaClientes = obtenerListaClientes();
+    let listaAdmin = obtenerListaAdmin();
+    let listaUsuarios = [];
 
-'use strict';
+    for (let i = 0; i < listaClientes.length; i++) {
+        listaUsuarios.push(listaClientes[i]);
+    }
+ 
+    for (let i = 0; i < listaAdmin.length; i++) {
+        listaUsuarios.push(listaAdmin[i]);
+    }
 
-function obtenerHoteles(){
+    return listaUsuarios;
+}
+
+function obtenerListaClientes(){
     let lista = [];
 
     let respuesta = '';
     let peticion = $.ajax({
-        url : 'http://localhost:4000/api/listar_hotel',
+        url : 'http://localhost:4000/api/listar_cliente',
         type : 'get',
         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
         dataType : 'json',
@@ -29,26 +42,18 @@ function obtenerHoteles(){
     return lista;
 }
 
-function modificarHotel(pHotel){
+function obtenerListaAdmin (){
+    let lista = [];
+
     let respuesta = '';
     let peticion = $.ajax({
-        url : 'http://localhost:4000/api/registrar_hotel',
-        type : 'post',
+        url : 'http://localhost:4000/api/listar_usuario',
+        type : 'get',
         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
         dataType : 'json',
         async : false,
         data:{
-            _id : pHotel[0],
-            nombre : pHotel[1],
-            ubicacion : pHotel[2],
-            provincia : pHotel[3],
-            canton : pHotel[4],
-            distrito : pHotel[5],
-            direccion : pHotel[6],
-            telefonoServicio : pHotel[7],
-            correoServicio : pHotel[8],
-            telefonoReservacion : pHotel[9],
-            correoReservacion : pHotel[10]
+            
         }
       });
     
@@ -61,8 +66,7 @@ function modificarHotel(pHotel){
       });
 
       return respuesta;
+    
+    return lista;
 }
-
-
-
 

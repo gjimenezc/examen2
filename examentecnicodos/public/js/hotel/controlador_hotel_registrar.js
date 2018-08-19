@@ -74,7 +74,7 @@ function obtenerDatos(){
             confirmButtonText : 'Entendido'
         }).then(
             function(){
-                window.location.href = "../../html/proyecto/proyecto_listar_admin.html" //falta
+                window.location.href = "../../html/hotel/hotel_listar.html" 
             }
         );
     }

@@ -184,7 +184,7 @@ function obtenerDatos(){
         );
         console.log('No se pudo registrar el cliente');
     }else{
-        registrarHotel(infoHotel);
+        modificarHotel(infoHotel);
         swal({
             type : 'success',
             title : 'Registro exitoso',
@@ -192,7 +192,7 @@ function obtenerDatos(){
             confirmButtonText : 'Entendido'
         }).then(
             function(){
-                window.location.href = "../../html/proyecto/proyecto_listar_admin.html" //falta
+                window.location.href = "../../html/hotel/hotel_listar.html" //falta
             }
         );
     }

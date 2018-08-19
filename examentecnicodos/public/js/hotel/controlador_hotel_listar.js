@@ -76,7 +76,7 @@ function ftnMostrarHotel(){
 
     ftnGuardarIdSeleccionado(id);
 
-    window.location.replace('../../html/proyecto/proyecto_mostrar_admin.html');
+    window.location.replace('../../html/hotel/hotel_mostrar.html');
 };
 
 function ftnGuardarIdSeleccionado (pId){

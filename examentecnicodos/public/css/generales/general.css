@@ -35,7 +35,7 @@ h2 {
 
 
   button.button-header{
-    width: 50%;
+    width: 15%;
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
@@ -56,13 +56,13 @@ h2 {
 }
 .logo{
     clear: both;
-    padding-left: 40%;
+    padding-left: 35%;
     padding-top: 2%;
     padding-bottom: 2%;
 }
 
 .logo img{
-    width: 30%;      
+    width: 50%;      
 }
 .menuCont{
     margin: 2%;
